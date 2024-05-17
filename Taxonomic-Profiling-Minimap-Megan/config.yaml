@@ -5,7 +5,7 @@ minimap:
   # from more chunks, but 9 is the absolute upper limit for any workflow (10 will cause errors).
   # Using a chunk size of 1 means the entire fasta file will be used.
   # DO NOT OVER SPLIT your fasta file, or this workflow will run substantially slower. 
-  chunks: 2
+  chunks: 1
   
   # Provide the full path to the minimap2-indexed database.
   # We recommend downloading the NCBI nt database from: ftp://ftp.ncbi.nlm.nih.gov/blast/db/FASTA/nt.gz*
@@ -13,10 +13,10 @@ minimap:
   # The database should be indexed using: minimap2 -k 19 -w 10 -d mm2_nt_db.mmi nt.gz
   # The k and w settings are specific to this pipeline.
   # This indexing can take several hours, and will result in a file that is ~860GB in size.
-  db: "/pbi/dept/appslab/datasets/dp_databases/mm_nt_db.mmi"
+  db: "/mnt/sanger/blast_db/fasta/mm_nt_db_ONT.mmi"
   
   # The number of threads to use for minimap2 alignments.
-  threads: 24
+  threads: 72
   
   # The number of secondary alignments to allow; 20 is reasonable for the LCA algorithm 
   # in MEGAN. Increasing this number will cause the SAM file to become much larger in size, 
@@ -25,19 +25,19 @@ minimap:
   
   # directory location to write large temporary files during SAM sort stage
   # default is "/scratch", but if that is unavailable specify another directory location
-  tempdir: "/scratch"
+  tempdir: "/mnt/sanger/scratch"
   
   
 sam2rma:
   # The full path to the sam2rma tool.
   # This tool is distributed as part of the MEGAN download, it is a binary.
-  path: "/home/dportik/programs/megan/tools/sam2rma"
+  path: "/home/alex/bin/megan/tools/sam2rma"
 
   # The full path to the MEGAN database file, which can be downloaded from:
   # https://software-ab.informatik.uni-tuebingen.de/download/megan6/welcome.html
   # please note that the name of this file will change depending on the version, 
   # and that this must be the the version for the genomic DNA accessions.
-  db: "/home/dportik/programs/megan/db/megan-nucl-Feb2022.db"
+  db: "/mnt/sanger/megan_db/megan-nucl-Feb2022.db"
 
   # Number of threads to use for sam2rma, 24 is generally sufficient
   threads: 24
@@ -67,7 +67,7 @@ sam2rma:
 rma2info:
   # The full path to the rma2info tool.
   # This tool is distributed as part of the MEGAN download, it is a binary.
-  path: "/home/dportik/programs/megan/tools/rma2info"
+  path: "/home/alex/bin/megan/tools/rma2info"
     
   # Number of threads to use for rma2info. Set for memory usage of up to 5GB.
   threads: 12
